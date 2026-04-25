@@ -1,7 +1,37 @@
 {% extends 'base/base.html' %}
 
 {% block title %}{{ segment.title }} | {{ site_settings.site_name|default:"Aviyaan Showcase" }}{% endblock %}
+{% block meta_description %}{% if segment.short_description %}{{ segment.short_description }}{% elif site_settings and site_settings.hero_subtitle %}{{ site_settings.hero_subtitle }}{% else %}Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.{% endif %}{% endblock %}
+
+{% block og_title %}{{ segment.title }} | {{ site_settings.site_name|default:"Aviyaan Showcase" }}{% endblock %}
+{% block og_description %}{% if segment.short_description %}{{ segment.short_description }}{% elif site_settings and site_settings.hero_subtitle %}{{ site_settings.hero_subtitle }}{% else %}Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.{% endif %}{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ segment.cover_image.url }}{% endblock %}
+{% block og_type %}article{% endblock %}
+
+{% block twitter_title %}{{ segment.title }} | {{ site_settings.site_name|default:"Aviyaan Showcase" }}{% endblock %}
+{% block twitter_description %}{% if segment.short_description %}{{ segment.short_description }}{% elif site_settings and site_settings.hero_subtitle %}{{ site_settings.hero_subtitle }}{% else %}Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.{% endif %}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{{ segment.cover_image.url }}{% endblock %}
+
 {% block body_class %}segment-detail-page{% endblock %}
+
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "{{ segment.title }} at {{ site_settings.site_name|default:'Aviyaan Showcase' }}",
+  "image": "{{ request.scheme }}://{{ request.get_host }}{{ segment.cover_image.url }}",
+  "description": "{% if segment.short_description %}{{ segment.short_description }}{% elif site_settings and site_settings.hero_subtitle %}{{ site_settings.hero_subtitle }}{% else %}Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.{% endif %}",
+  "url": "{{ request.build_absolute_uri }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Lucknow",
+    "addressRegion": "Uttar Pradesh",
+    "addressCountry": "IN"
+  }
+}
+</script>
+{% endblock %}
 
 {% block content %}
 
@@ -30,11 +60,11 @@
                 </p>
 
                 <div class="detail-actions">
-                    <a class="btn btn-soft" href="{% url 'core:home' %}#segment-grid">
-                        <i class="bi bi-grid me-1"></i> All Spaces
+                    <a class="btn btn-soft" href="{% url 'core:home' %}#segment-grid" aria-label="View all spaces in the collection">
+                        <i class="bi bi-grid me-1" aria-hidden="true"></i> All Spaces
                     </a>
-                    <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-whatsapp"></i> Get in Touch
+                    <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer" aria-label="Get in touch via WhatsApp">
+                        <i class="bi bi-whatsapp" aria-hidden="true"></i> Get in Touch
                     </a>
                 </div>
             </div>
@@ -49,7 +79,7 @@
 
             <div class="col-lg-7" data-reveal>
                 <div class="detail-cover-panel">
-                    <img class="lux-img" src="{{ segment.cover_image.url }}" alt="{{ segment.title }}">
+                    <img class="lux-img" src="{{ segment.cover_image.url }}" alt="{{ segment.title }} cover overview" loading="lazy" decoding="async">
                 </div>
             </div>
 
@@ -65,8 +95,8 @@
                         <span>Elegant pacing</span>
                     </div>
 
-                    <a class="text-link mt-1" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer">
-                        Official Website <i class="bi bi-arrow-up-right"></i>
+                    <a class="text-link mt-1" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the official website">
+                        Official Website <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
@@ -92,16 +122,16 @@
         <div class="row g-4">
             {% for item in images %}
                 <div class="col-sm-6 col-lg-4" data-reveal style="transition-delay: calc(75ms * {{ forloop.counter0|default:0 }});">
-                    <div class="gallery-card">
+                    <article class="gallery-card">
                         <div class="gallery-card-media">
-                            <img class="lux-img" src="{{ item.image.url }}" alt="{{ item.title|default:segment.title }}">
+                            <img class="lux-img" src="{{ item.image.url }}" alt="{{ item.title|default:segment.title }} gallery image" loading="lazy" decoding="async">
                         </div>
                         {% if item.title %}
                             <div class="gallery-card-body">
                                 <h3>{{ item.title }}</h3>
                             </div>
                         {% endif %}
-                    </div>
+                    </article>
                 </div>
             {% endfor %}
         </div>
@@ -142,16 +172,16 @@
                         {% elif item.video_url %}
                             {% if item.thumbnail %}
                                 <div class="ratio ratio-16x9 mb-3" style="border-radius:var(--r-md); overflow:hidden;">
-                                    <img class="lux-img" src="{{ item.thumbnail.url }}" alt="{{ item.title|default:segment.title }}">
+                                    <img class="lux-img" src="{{ item.thumbnail.url }}" alt="{{ item.title|default:segment.title }} video thumbnail" loading="lazy" decoding="async">
                                 </div>
                             {% else %}
-                                <div class="ratio ratio-16x9 d-flex align-items-center justify-content-center mb-3" style="border-radius:var(--r-md); background:var(--ivory-dark);">
+                                <div class="ratio ratio-16x9 d-flex align-items-center justify-content-center mb-3" style="border-radius:var(--r-md); background:var(--ivory-dark);" aria-hidden="true">
                                     <i class="bi bi-play-circle" style="font-size:3.5rem; color:var(--gold-mid);"></i>
                                 </div>
                             {% endif %}
                             <p class="mb-3">Continue the visual walkthrough of {{ segment.title }} through the external video link.</p>
-                            <a class="btn btn-brand" href="{{ item.video_url }}" target="_blank" rel="noopener noreferrer">
-                                Open Video <i class="bi bi-arrow-up-right ms-1"></i>
+                            <a class="btn btn-brand" href="{{ item.video_url }}" target="_blank" rel="noopener noreferrer" aria-label="Open video of {{ item.title|default:segment.title }}">
+                                Open Video <i class="bi bi-arrow-up-right ms-1" aria-hidden="true"></i>
                             </a>
                         {% endif %}
                     </div>
@@ -185,11 +215,11 @@
             <span class="lux-label">Plan Your Visit</span>
             <h2>Ready to experience {{ segment.title }}<br>for yourself?</h2>
             <div class="cta-actions">
-                <a class="btn btn-soft" href="{% url 'core:home' %}#segment-grid">
+                <a class="btn btn-soft" href="{% url 'core:home' %}#segment-grid" aria-label="Explore all spaces in the collection">
                     Explore All Spaces
                 </a>
-                <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp"></i> Get in Touch
+                <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer" aria-label="Get in touch via WhatsApp">
+                    <i class="bi bi-whatsapp" aria-hidden="true"></i> Get in Touch
                 </a>
             </div>
         </div>

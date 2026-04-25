@@ -41,6 +41,17 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* Accessibility Focus States */
+:focus-visible {
+  outline: 2px solid var(--gold-mid);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--gold-mid);
+  outline-offset: 4px;
+}
+
 body.public-body {
   margin: 0;
   font-family: var(--font-body);
@@ -135,6 +146,7 @@ h1,h2,h3,h4,h5,h6 {
   color: #fff;
   box-shadow: var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,.2);
   transform: translateY(-3px);
+  filter: brightness(1.05);
 }
 
 .btn-soft {
@@ -244,8 +256,16 @@ h1,h2,h3,h4,h5,h6 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 600ms var(--ease);
+  transition: transform 600ms var(--ease), opacity 600ms var(--ease), filter 600ms var(--ease);
   display: block;
+}
+
+img[loading="lazy"] {
+  /* Provide a slight opacity fade-in as they load if supported by JS, or just smooth filters */
+  filter: blur(0px);
+}
+img[loading="lazy"]:not([src]) {
+  visibility: hidden;
 }
 
 /* ── Hero Section ────────────────────────────────────────── */

@@ -3,6 +3,26 @@
 {% block title %}{{ site_settings.site_name|default:"Aviyaan Showcase" }}{% endblock %}
 {% block body_class %}core-home{% endblock %}
 
+{% block schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{ site_settings.site_name|default:'Aviyaan Showcase' }}",
+  "image": "{{ request.scheme }}://{{ request.get_host }}/static/core/img/logo-dark-demo.png",
+  "description": "{{ site_settings.hero_subtitle|default:'Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.' }}",
+  "url": "{{ request.build_absolute_uri }}",
+  "telephone": "+919236392905",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Lucknow",
+    "addressRegion": "Uttar Pradesh",
+    "addressCountry": "IN"
+  }
+}
+</script>
+{% endblock %}
+
 {% block content %}
 
 {# ── Hero ──────────────────────────────────────────────────────── #}
@@ -30,11 +50,11 @@
                 </p>
 
                 <div class="hero-actions">
-                    <a class="btn btn-brand" href="#segment-grid">
-                        Explore Spaces <i class="bi bi-arrow-down ms-1"></i>
+                    <a class="btn btn-brand" href="#segment-grid" aria-label="Explore Spaces collection below">
+                        Explore Spaces <i class="bi bi-arrow-down ms-1" aria-hidden="true"></i>
                     </a>
-                    <a class="btn btn-soft" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-whatsapp"></i> Get in Touch
+                    <a class="btn btn-soft" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer" aria-label="Get in touch via WhatsApp">
+                        <i class="bi bi-whatsapp" aria-hidden="true"></i> Get in Touch
                     </a>
                 </div>
 
@@ -116,9 +136,9 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
             {% for segment in segments %}
                 <div class="col" data-reveal style="transition-delay: calc(100ms * {{ forloop.counter0|default:0 }});">
-                    <div class="segment-card">
-                        <a href="{% url 'showcase:segment_detail' segment.slug %}" class="segment-card-media d-block">
-                            <img class="lux-img" src="{{ segment.cover_image.url }}" alt="{{ segment.title }}">
+                    <article class="segment-card">
+                        <a href="{% url 'showcase:segment_detail' segment.slug %}" class="segment-card-media d-block" aria-label="View gallery for {{ segment.title }}">
+                            <img class="lux-img" src="{{ segment.cover_image.url }}" alt="View of {{ segment.title }} space" loading="lazy" decoding="async">
                         </a>
                         <div class="segment-card-body">
                             <div class="segment-card-copy">
@@ -132,11 +152,11 @@
                                     {% endif %}
                                 </p>
                             </div>
-                            <a class="text-link" href="{% url 'showcase:segment_detail' segment.slug %}">
-                                View Gallery <i class="bi bi-arrow-up-right"></i>
+                            <a class="text-link" href="{% url 'showcase:segment_detail' segment.slug %}" aria-label="View gallery for {{ segment.title }}">
+                                View Gallery <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
                             </a>
                         </div>
-                    </div>
+                    </article>
                 </div>
             {% empty %}
                 <div class="col-12" data-reveal>
@@ -183,11 +203,11 @@
             <span class="lux-label">Plan Your Visit</span>
             <h2>Discover more through the official<br>Aviyaan website or connect on WhatsApp.</h2>
             <div class="cta-actions">
-                <a class="btn btn-soft" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer">
+                <a class="btn btn-soft" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the official Aviyaan website">
                     Visit Website
                 </a>
-                <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp"></i> Get in Touch
+                <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer" aria-label="Get in touch via WhatsApp">
+                    <i class="bi bi-whatsapp" aria-hidden="true"></i> Get in Touch
                 </a>
             </div>
         </div>

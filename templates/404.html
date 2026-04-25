@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block title %}404 - Lost in Paradise | {{ site_settings.site_name|default:"Aviyaan Resort" }}{% endblock %}
+{% block meta_description %}Oops! Looks like this page went on a tropical vacation.{% endblock %}
+{% block body_class %}error-page resort-error-page{% endblock %}
+
+{% block content %}
+<section class="section-shell d-flex align-items-center justify-content-center text-center" style="min-height: 80vh;">
+    <div class="container" data-reveal>
+
+        <!-- 🌴 Funny Resort Image -->
+        <div class="mb-4">
+            <img 
+                src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+                alt="Lost in resort paradise"
+                style="width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);"
+            >
+        </div>
+
+        <div class="empty-state-card mx-auto" style="max-width: 650px;">
+            
+            <span class="lux-label mb-3">404 • Lost in Paradise</span>
+
+            <h1 style="font-size: 2.6rem; margin-bottom: 1rem; font-weight: 400;">
+                Uh-oh... This Page Checked Out 🏝️
+            </h1>
+
+            <p class="mb-3">
+                We searched the beach, the infinity pool, and even behind the bar...
+                but this page is officially missing.
+            </p>
+
+            <p class="mb-4">
+                Maybe it is sipping cocktails somewhere or just enjoying a sunset without us. 
+            </p>
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a class="btn btn-brand" href="{% url 'core:home' %}">
+                    Back to the Lobby
+                </a>
+
+                <a class="btn btn-soft" href="{% url 'core:home' %}#segment-grid">
+                    Explore the Resort
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

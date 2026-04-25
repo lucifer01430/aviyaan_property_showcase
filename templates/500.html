@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block title %}500 - Resort Kitchen Panic | {{ site_settings.site_name|default:"Aviyaan Resort" }}{% endblock %}
+{% block meta_description %}Oops! Our resort servers had a tiny tropical meltdown.{% endblock %}
+{% block body_class %}error-page resort-error-page{% endblock %}
+
+{% block content %}
+<section class="section-shell d-flex align-items-center justify-content-center text-center" style="min-height: 80vh;">
+    <div class="container" data-reveal>
+
+        <!-- 🛠️ Funny Resort Server Error Image -->
+        <div class="mb-4">
+            <img 
+                src="https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=1000&q=80"
+                alt="Resort staff fixing a server error"
+                style="width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);"
+            >
+        </div>
+
+        <div class="empty-state-card mx-auto" style="max-width: 650px;">
+            
+            <span class="lux-label mb-3">500 • Server Took a Break</span>
+
+            <h1 style="font-size: 2.6rem; margin-bottom: 1rem; font-weight: 400;">
+                Oops! Our Server Slipped by the Pool 🏊‍♂️
+            </h1>
+
+            <p class="mb-3">
+                Something unexpected happened while we were preparing your resort experience.
+                Our digital staff is already running around with towels and tools.
+            </p>
+
+            <p class="mb-4">
+                Please try refreshing the page, or contact us if the server keeps pretending to be on vacation. 🌴
+            </p>
+
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a class="btn btn-brand" href="{% url 'core:home' %}" aria-label="Return to Resort Homepage">
+                    Back to the Lobby
+                </a>
+
+                <a class="btn btn-soft" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer" aria-label="Get in touch via WhatsApp">
+                    Call Resort Rescue
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
