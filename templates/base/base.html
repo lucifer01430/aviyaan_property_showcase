@@ -1,18 +1,121 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Aviyaan Showcase{% endblock %}</title>
+    <title>{% block title %}{{ site_settings.site_name|default:"Aviyaan Showcase" }}{% endblock %}</title>
+    <meta name="description" content="{{ site_settings.hero_subtitle|default:'Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.' }}">
 
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% block extra_head %}{% endblock %}
 </head>
-<body>
+<body class="public-body {% block body_class %}{% endblock %}">
 
-    {% block content %}{% endblock %}
+    <header class="site-header">
+        <div class="container">
+            <div class="site-header-shell">
+                <a href="{% url 'core:home' %}" class="site-brand">
+                    <img src="https://theaviyaan.com/static/core/img/logo-dark-demo.png" alt="{{ site_settings.site_name|default:'Aviyaan' }}">
+                    <span class="site-brand-copy">
+                        <strong>{{ site_settings.site_name|default:"Aviyaan" }}</strong>
+                        <small class="d-none d-sm-block">{{ site_settings.site_tagline|default:"Luxury hospitality" }}</small>
+                    </span>
+                </a>
 
+                <div class="site-header-actions">
+                    <a class="btn btn-soft" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer">
+                        Visit Website
+                    </a>
+                    <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
+                        <i class="bi bi-whatsapp"></i> Get in Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="site-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="site-footer-shell">
+                <div class="row g-4 g-xl-5 align-items-center">
+
+                    <div class="col-12 col-lg-6">
+                        <div class="footer-brand">
+                            <img src="https://theaviyaan.com/static/core/img/logo-white.png" alt="{{ site_settings.site_name|default:'Aviyaan' }}">
+ </div>
+
+                        <p class="footer-copy">
+                            {{ site_settings.footer_text|default:"A refined presentation of Aviyaan's spaces, celebrations, wellness, dining, and destination-led experiences in Lucknow." }}
+                        </p>
+
+                        <div class="footer-actions">
+                            <a class="btn btn-soft text-dark" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer">
+                                Visit Website
+                            </a>
+                            <a class="btn btn-brand-dark" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-whatsapp"></i> Get in Touch
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="row g-4">
+                            <div class="col-12 col-sm-6">
+                                <h6 class="footer-heading">Explore</h6>
+                                <ul class="footer-list">
+                                    <li><a href="{% url 'core:home' %}">Home</a></li>
+                                    <li><a href="{% url 'showcase:showcase_home' %}">Showcase</a></li>
+                                    <li><a href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer">Official Website</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <h6 class="footer-heading">Contact</h6>
+                                <ul class="footer-list">
+                                    <li>
+                                        <a href="tel:+919236392905">
+                                            <i class="bi bi-telephone me-2"></i>9236392905
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
+                                            <i class="bi bi-whatsapp me-2"></i>WhatsApp
+                                        </a>
+                                    </li>
+                                    {% if site_settings.contact_email %}
+                                    <li>
+                                        <a href="mailto:{{ site_settings.contact_email }}">
+                                            <i class="bi bi-envelope me-2"></i>{{ site_settings.contact_email }}
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="site-footer-bottom">
+                    <span>&copy; {% now "Y" %} {{ site_settings.site_name|default:"Aviyaan" }}. All rights reserved.</span>
+                    <span>Luxury property showcase for direct guest and client sharing.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,199 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{ segment.title }} | {{ site_settings.site_name|default:"Aviyaan Showcase" }}{% endblock %}
+{% block body_class %}segment-detail-page{% endblock %}
+
+{% block content %}
+
+{# ── Detail Hero ───────────────────────────────────────────────── #}
+<section class="detail-hero">
+    <div class="detail-hero-backdrop">
+        <img src="{{ segment.cover_image.url }}" alt="{{ segment.title }}">
+    </div>
+    <div class="container detail-hero-content">
+        <div class="row">
+            <div class="col-lg-8 col-xl-7" data-reveal>
+                <nav class="detail-breadcrumb" aria-label="breadcrumb">
+                    <a href="{% url 'core:home' %}#segment-grid">Collection</a>
+                    <span>/</span>
+                    <span>{{ segment.title }}</span>
+                </nav>
+
+                <span class="lux-label lux-label-light mb-3">Aviyaan Space</span>
+                <h1 class="detail-title">{{ segment.title }}</h1>
+                <p class="detail-description">
+                    {% if segment.short_description %}
+                        {{ segment.short_description }}
+                    {% else %}
+                        A refined gallery of imagery and motion designed to express the atmosphere of this Aviyaan setting.
+                    {% endif %}
+                </p>
+
+                <div class="detail-actions">
+                    <a class="btn btn-soft" href="{% url 'core:home' %}#segment-grid">
+                        <i class="bi bi-grid me-1"></i> All Spaces
+                    </a>
+                    <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
+                        <i class="bi bi-whatsapp"></i> Get in Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ── Overview ──────────────────────────────────────────────────── #}
+<section class="section-shell" style="padding-bottom:0;">
+    <div class="container">
+        <div class="row g-4 align-items-stretch">
+
+            <div class="col-lg-7" data-reveal>
+                <div class="detail-cover-panel">
+                    <img class="lux-img" src="{{ segment.cover_image.url }}" alt="{{ segment.title }}">
+                </div>
+            </div>
+
+            <div class="col-lg-5" data-reveal>
+                <div class="detail-copy-panel">
+                    <span class="lux-label">Gallery View</span>
+                    <h2>{{ segment.title }}<br><em>in a calmer, closer frame.</em></h2>
+                    <p>A visual-first layout keeps the browsing experience polished and uncluttered, with generous space for imagery and a separate motion section where available.</p>
+
+                    <div class="detail-tag-row">
+                        <span>Curated imagery</span>
+                        {% if videos %}<span>Video moments</span>{% endif %}
+                        <span>Elegant pacing</span>
+                    </div>
+
+                    <a class="text-link mt-1" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer">
+                        Official Website <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{# ── Image Gallery ─────────────────────────────────────────────── #}
+{% if images %}
+<section class="section-shell">
+    <div class="container">
+        <div class="row align-items-end g-3 mb-5" data-reveal>
+            <div class="col-lg-7">
+                <span class="lux-label mb-3">Image Gallery</span>
+                <h2 class="section-title">A closer look at<br><em>{{ segment.title }}</em></h2>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+                <p class="section-copy">Clean, spacious frames let the mood of the space speak without distraction.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for item in images %}
+                <div class="col-sm-6 col-lg-4" data-reveal style="transition-delay: calc(75ms * {{ forloop.counter0|default:0 }});">
+                    <div class="gallery-card">
+                        <div class="gallery-card-media">
+                            <img class="lux-img" src="{{ item.image.url }}" alt="{{ item.title|default:segment.title }}">
+                        </div>
+                        {% if item.title %}
+                            <div class="gallery-card-body">
+                                <h3>{{ item.title }}</h3>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ── Video Section ─────────────────────────────────────────────── #}
+{% if videos %}
+<section class="section-shell" {% if images %}style="padding-top:0;"{% endif %}>
+    <div class="container">
+        <div class="row align-items-end g-3 mb-5" data-reveal>
+            <div class="col-lg-7">
+                <span class="lux-label mb-3">Motion</span>
+                <h2 class="section-title">Moving views of<br><em>the experience</em></h2>
+            </div>
+            <div class="col-lg-4 offset-lg-1">
+                <p class="section-copy">Where available, video adds a more natural sense of flow, scale, and ambience.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for item in videos %}
+                <div class="col-lg-6" data-reveal>
+                    <div class="video-card">
+                        <div class="video-card-header">
+                            <span class="video-card-tag">Film</span>
+                            <h3>{{ item.title|default:segment.title }}</h3>
+                        </div>
+
+                        {% if item.video_file %}
+                            <div class="video-frame ratio ratio-16x9">
+                                <video controls preload="metadata" playsinline>
+                                    <source src="{{ item.video_file.url }}">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        {% elif item.video_url %}
+                            {% if item.thumbnail %}
+                                <div class="ratio ratio-16x9 mb-3" style="border-radius:var(--r-md); overflow:hidden;">
+                                    <img class="lux-img" src="{{ item.thumbnail.url }}" alt="{{ item.title|default:segment.title }}">
+                                </div>
+                            {% else %}
+                                <div class="ratio ratio-16x9 d-flex align-items-center justify-content-center mb-3" style="border-radius:var(--r-md); background:var(--ivory-dark);">
+                                    <i class="bi bi-play-circle" style="font-size:3.5rem; color:var(--gold-mid);"></i>
+                                </div>
+                            {% endif %}
+                            <p class="mb-3">Continue the visual walkthrough of {{ segment.title }} through the external video link.</p>
+                            <a class="btn btn-brand" href="{{ item.video_url }}" target="_blank" rel="noopener noreferrer">
+                                Open Video <i class="bi bi-arrow-up-right ms-1"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ── Empty State ───────────────────────────────────────────────── #}
+{% if not images and not videos %}
+<section class="section-shell" style="padding-top:2rem;">
+    <div class="container" data-reveal>
+        <div class="empty-state-card">
+            <span class="lux-label mb-3">Presentation in Progress</span>
+            <h3>Visual material for this space<br>is being prepared.</h3>
+            <p class="mt-2 mb-4">Please return to the collection to browse other Aviyaan spaces, or get in touch for a direct introduction.</p>
+            <a class="btn btn-brand" href="{% url 'core:home' %}#segment-grid">
+                <i class="bi bi-grid me-1"></i> Return to Spaces
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ── CTA ───────────────────────────────────────────────────────── #}
+<section class="pb-5 pt-3">
+    <div class="container" data-reveal>
+        <div class="cta-card">
+            <span class="lux-label">Plan Your Visit</span>
+            <h2>Ready to experience {{ segment.title }}<br>for yourself?</h2>
+            <div class="cta-actions">
+                <a class="btn btn-soft" href="{% url 'core:home' %}#segment-grid">
+                    Explore All Spaces
+                </a>
+                <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-whatsapp"></i> Get in Touch
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
