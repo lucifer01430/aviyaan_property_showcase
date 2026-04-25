@@ -1,54 +1,77 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ site_settings.site_name|default:"Aviyaan Showcase" }}{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}{{ site_settings.hero_subtitle|default:'Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.' }}{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}luxury hospitality, Aviyaan, dining, wellness, celebrations, leisure, Lucknow{% endblock %}">
+    <meta name="description"
+        content="{% block meta_description %}{{ site_settings.hero_subtitle|default:'Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.' }}{% endblock %}">
+    <meta name="keywords"
+        content="{% block meta_keywords %}luxury hospitality, Aviyaan, dining, wellness, celebrations, leisure, Lucknow{% endblock %}">
     <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="{% block og_title %}{{ site_settings.site_name|default:'Aviyaan Showcase' }}{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}{{ site_settings.hero_subtitle|default:'Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.' }}{% endblock %}">
+    <meta property="og:title"
+        content="{% block og_title %}{{ site_settings.site_name|default:'Aviyaan Showcase' }}{% endblock %}">
+    <meta property="og:description"
+        content="{% block og_description %}{{ site_settings.hero_subtitle|default:'Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.' }}{% endblock %}">
     <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}/static/core/img/logo-dark-demo.png{% endblock %}">
+    <meta property="og:image"
+        content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}/static/core/img/logo-dark-demo.png{% endblock %}">
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}{{ site_settings.site_name|default:'Aviyaan Showcase' }}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}{{ site_settings.hero_subtitle|default:'Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.' }}{% endblock %}">
-    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}/static/core/img/logo-dark-demo.png{% endblock %}">
+    <meta name="twitter:title"
+        content="{% block twitter_title %}{{ site_settings.site_name|default:'Aviyaan Showcase' }}{% endblock %}">
+    <meta name="twitter:description"
+        content="{% block twitter_description %}{{ site_settings.hero_subtitle|default:'Premium Aviyaan showcase for hospitality, leisure, dining, wellness, and celebrations.' }}{% endblock %}">
+    <meta name="twitter:image"
+        content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}/static/core/img/logo-dark-demo.png{% endblock %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon/favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'images/favicon/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}" />
+    <meta name="apple-mobile-web-app-title" content="Venues" />
+    <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}" />
     {% block extra_head %}{% endblock %}
     {% block schema %}{% endblock %}
 </head>
+
 <body class="public-body {% block body_class %}{% endblock %}">
 
     <header class="site-header">
         <div class="container">
             <nav class="site-header-shell" aria-label="Main navigation">
                 <a href="{% url 'core:home' %}" class="site-brand" aria-label="Aviyaan Homepage">
-                    <img src="https://theaviyaan.com/static/core/img/logo-dark-demo.png" alt="{{ site_settings.site_name|default:'Aviyaan' }} Logo" width="120" height="40" style="object-fit:contain;">
+                    <img src="https://theaviyaan.com/static/core/img/logo-dark-demo.png"
+                        alt="{{ site_settings.site_name|default:'Aviyaan' }} Logo" width="120" height="40"
+                        style="object-fit:contain;">
                     <span class="site-brand-copy">
                         <strong>{{ site_settings.site_name|default:"Aviyaan" }}</strong>
-                        <small class="d-none d-sm-block">{{ site_settings.site_tagline|default:"Luxury hospitality" }}</small>
+                        <small class="d-none d-sm-block">{{ site_settings.site_tagline|default:"Luxury hospitality"
+                            }}</small>
                     </span>
                 </a>
 
                 <div class="site-header-actions">
-                    <a class="btn btn-soft" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the official Aviyaan website">
+                    <a class="btn btn-soft" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visit the official Aviyaan website">
                         Visit Website
                     </a>
-                    <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer" aria-label="Get in touch via WhatsApp">
+                    <a class="btn btn-brand" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer"
+                        aria-label="Get in touch via WhatsApp">
                         <i class="bi bi-whatsapp" aria-hidden="true"></i> Get in Touch
                     </a>
                 </div>
@@ -67,18 +90,23 @@
 
                     <div class="col-12 col-lg-6">
                         <div class="footer-brand">
-                            <img src="https://theaviyaan.com/static/core/img/logo-white.png" alt="{{ site_settings.site_name|default:'Aviyaan' }} Footer Logo" loading="lazy" width="180" height="60" style="object-fit:contain;">
+                            <img src="https://theaviyaan.com/static/core/img/logo-white.png"
+                                alt="{{ site_settings.site_name|default:'Aviyaan' }} Footer Logo" loading="lazy"
+                                width="180" height="60" style="object-fit:contain;">
                         </div>
 
                         <p class="footer-copy">
-                            {{ site_settings.footer_text|default:"A refined presentation of Aviyaan's spaces, celebrations, wellness, dining, and destination-led experiences in Lucknow." }}
+                            {{ site_settings.footer_text|default:"A refined presentation of Aviyaan's spaces,
+                            celebrations, wellness, dining, and destination-led experiences in Lucknow." }}
                         </p>
 
                         <div class="footer-actions">
-                            <a class="btn btn-soft text-dark" href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer" aria-label="Visit the official Aviyaan website">
+                            <a class="btn btn-soft text-dark" href="https://theaviyaan.com" target="_blank"
+                                rel="noopener noreferrer" aria-label="Visit the official Aviyaan website">
                                 Visit Website
                             </a>
-                            <a class="btn btn-brand-dark" href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer" aria-label="Get in touch via WhatsApp">
+                            <a class="btn btn-brand-dark" href="https://wa.me/919236392905" target="_blank"
+                                rel="noopener noreferrer" aria-label="Get in touch via WhatsApp">
                                 <i class="bi bi-whatsapp" aria-hidden="true"></i> Get in Touch
                             </a>
                         </div>
@@ -91,7 +119,8 @@
                                 <ul class="footer-list">
                                     <li><a href="{% url 'core:home' %}">Home</a></li>
                                     <li><a href="{% url 'showcase:showcase_home' %}">Showcase</a></li>
-                                    <li><a href="https://theaviyaan.com" target="_blank" rel="noopener noreferrer">Official Website</a></li>
+                                    <li><a href="https://theaviyaan.com" target="_blank"
+                                            rel="noopener noreferrer">Official Website</a></li>
                                 </ul>
                             </nav>
 
@@ -104,14 +133,17 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp">
+                                        <a href="https://wa.me/919236392905" target="_blank" rel="noopener noreferrer"
+                                            aria-label="Message us on WhatsApp">
                                             <i class="bi bi-whatsapp me-2" aria-hidden="true"></i>WhatsApp
                                         </a>
                                     </li>
                                     {% if site_settings.contact_email %}
                                     <li>
-                                        <a href="mailto:{{ site_settings.contact_email }}" aria-label="Email us at {{ site_settings.contact_email }}">
-                                            <i class="bi bi-envelope me-2" aria-hidden="true"></i>{{ site_settings.contact_email }}
+                                        <a href="mailto:{{ site_settings.contact_email }}"
+                                            aria-label="Email us at {{ site_settings.contact_email }}">
+                                            <i class="bi bi-envelope me-2" aria-hidden="true"></i>{{
+                                            site_settings.contact_email }}
                                         </a>
                                     </li>
                                     {% endif %}
@@ -123,7 +155,8 @@
                 </div>
 
                 <div class="site-footer-bottom">
-                    <span>&copy; {% now "Y" %} {{ site_settings.site_name|default:"Aviyaan" }}. All rights reserved.</span>
+                    <span>&copy; {% now "Y" %} {{ site_settings.site_name|default:"Aviyaan" }}. All rights
+                        reserved.</span>
                     <span>Luxury property showcase for direct guest and client sharing.</span>
                 </div>
             </div>
@@ -134,4 +167,5 @@
     <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
+
 </html>
